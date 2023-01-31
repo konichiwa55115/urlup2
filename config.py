@@ -1,7 +1,7 @@
 import os
 
 class Config(object):
-    TG_BOT_TOKEN = os.environ.get("BOT_TOKEN", "6032076608:AAHGXUrmFaf2_BUtoS5EyGm_SAuOhhfEzAg") # Make a bot from https://t.me/BotFather and enter the token here
+    TG_BOT_TOKEN = os.environ.get("BOT_TOKEN", "5848913964:AAGqQOwJSVH2qP5WhhGZde_Sh9V-ek-eXQ4") # Make a bot from https://t.me/BotFather and enter the token here
     
     APP_ID = int(os.environ.get("API_ID", 17983098)) # Get this value from https://my.telegram.org/apps
     
