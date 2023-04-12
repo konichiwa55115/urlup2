@@ -20,7 +20,7 @@ class URLDL:
 
     def __init__(self, update, process_msg, bot, url, customFileName):
         self.update = update
-        self.process_msg_id = process_msg.message_id
+        self.process_msg_id = process_msg.id
         self.bot = bot
         self.url = url
         self.customFileName = customFileName
@@ -43,7 +43,7 @@ class URLDL:
                 remaining = downObj.get_eta(human=True)
                 percentage = int(downObj.get_progress()*100)
                 try:
-                    msg = await self.bot.edit_message_text(self.userid, msg.message_id, f"<b>جاري التنزيل ...\n {progress_bar}\n📊Percentage: {percentage} %\n✅Completed: {completed}\n🚀Speed: {speed}\n⌚️Remaining Time: {remaining}</b>", parse_mode = enums.ParseMode.HTML)
+                    msg = await self.bot.edit_message_text(self.userid, msg.id, f"<b>جاري التنزيل ...\n {progress_bar}\n📊Percentage: {percentage} %\n✅Completed: {completed}\n🚀Speed: {speed}\n⌚️Remaining Time: {remaining}</b>", parse_mode = enums.ParseMode.HTML)
                     sleep(2)
                 except exceptions.bad_request_400.MessageNotModified:
                     pass
@@ -51,14 +51,14 @@ class URLDL:
                 filename = downObj.get_dest()
             except Exception as e:
                 await self.bot.send_message(Config.OWNER_ID, line_number(fileName, e))
-                await self.bot.edit_message_text(self.userid, msg.message_id, BotMessage.unsuccessful_upload, parse_mode = enums.ParseMode.HTML)
+                await self.bot.edit_message_text(self.userid, msg.id, BotMessage.unsuccessful_upload, parse_mode = enums.ParseMode.HTML)
             else:
                 if downObj.isSuccessful():
                     if self.customFileName: # To use custom File names
                         self.customFileName = f'{self.Downloadfolder}{self.customFileName}'
                         rename(filename, self.customFileName)
                         filename = self.customFileName
-                    n_msg = await self.bot.edit_message_text(self.userid, msg.message_id, BotMessage.uploading_msg, parse_mode = enums.ParseMode.HTML)
+                    n_msg = await self.bot.edit_message_text(self.userid, msg.id, BotMessage.uploading_msg, parse_mode = enums.ParseMode.HTML)
                     self.n_msg, self.filename = n_msg, filename
                     return True
                 else:
@@ -66,7 +66,7 @@ class URLDL:
                         rmtree(f'{self.Downloadfolder}')
                     except Exception as e:
                         await self.bot.send_message(Config.OWNER_ID, line_number(fileName, e))
-                        await self.bot.delete_messages(self.userid, msg.message_id)
+                        await self.bot.delete_messages(self.userid, msg.id)
                         await self.bot.send_message(self.userid, BotMessage.unsuccessful_upload, parse_mode = enums.ParseMode.HTML)
                     finally:
                         for e in downObj.get_errors():
