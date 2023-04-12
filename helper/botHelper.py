@@ -43,7 +43,7 @@ async def search_user_in_community(bot, update):
         await bot.get_chat_member('@AJPyroVerse', update.chat.id)
         await bot.get_chat_member('@AJPyroVerseGroup', update.chat.id)
     except UserNotParticipant:
-        await update.reply_text(BotMessage.not_joined_community, parse_mode = 'html',reply_markup=InlineKeyboardMarkup([
+        await update.reply_text(BotMessage.not_joined_community, parse_mode = enums.ParseMode.HTML,reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton('Join our Channel.',url = 'https://t.me/AJPyroVerse')],
         [InlineKeyboardButton('Join our Group.',url = 'https://t.me/AJPyroVerseGroup')]
         ]))
