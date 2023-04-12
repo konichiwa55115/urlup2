@@ -5,6 +5,7 @@
 # Importing External Packages
 from requests import get
 from bs4 import BeautifulSoup
+from pyrogram import enums
 
 # Importing Inbuilt Packages
 from re import match
@@ -24,9 +25,9 @@ class Downloader:
     @classmethod
     async def start(cls, update, url, bot):
         self = cls(update, url, bot)
-        self.process_msg = await update.reply_text(BotMessage.processing_url, parse_mode = 'html')
+        self.process_msg = await update.reply_text(BotMessage.processing_url, parse_mode = enums.ParseMode.HTML)
         if match('^(https://)?(www.)?youtu(.)?be(.com)?/(.*)', url):
-            await update.reply_text(BotMessage.youtube_url, parse_mode = 'html')
+            await update.reply_text(BotMessage.youtube_url, parse_mode = enums.ParseMode.HTML)
         elif match('^(http(s)?://)?(www.)?(cofilink.com|pdisk1.net|pdisk.net|pdisks.com)/share-video\?videoid=(.*)', url):
             await self.pdiskRawLinkExtract()
         else:   #Normal Url
@@ -50,7 +51,7 @@ class Downloader:
             self.url = jsonDoc['infoData']['defaultUrl']
         except Exception as e:
             await self.bot.send_message(Config.OWNER_ID, f'{line_number(fileName, e)}\n\n{self.url}')
-            await self.bot.edit_message_text(self.userid, self.process_msg.message_id, BotMessage.unsuccessful_upload, parse_mode = 'html')
+            await self.bot.edit_message_text(self.userid, self.process_msg.message_id, BotMessage.unsuccessful_upload, parse_mode = enums.ParseMode.HTML)
             return
         else:
             try:
