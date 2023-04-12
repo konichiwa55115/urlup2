@@ -3,6 +3,7 @@
 
 """Importing"""
 # Importing External Packages
+from pyrogram import enums
 from pySmartDL import SmartDL
 from pyrogram.errors import exceptions
 
