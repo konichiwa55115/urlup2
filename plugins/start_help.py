@@ -4,13 +4,14 @@
 """Importing"""
 # Importing Common Files
 from helper.importCommon import *
+from pyrogram import enums
 
 
 """Start Handler"""
 @Client.on_message(filters.private & filters.command("start"))
 async def start_handler(bot, update):
     if await search_user_in_community(bot, update):
-        await update.reply_text(BotMessage.start_msg, parse_mode = 'html')
+        await update.reply_text(BotMessage.start_msg, parse_mode = enums.ParseMode.HTML)
     return checking_user_in_db(update.chat.id)
 
 
@@ -18,6 +19,6 @@ async def start_handler(bot, update):
 @Client.on_message(filters.private & filters.command("help"))
 async def help_handler(bot, update):
     if await search_user_in_community(bot, update):
-        await update.reply_text(BotMessage.help_msg, parse_mode = 'html')
+        await update.reply_text(BotMessage.help_msg, parse_mode = enums.ParseMode.HTML)
     return
 
