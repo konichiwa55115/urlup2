@@ -51,7 +51,7 @@ class Downloader:
             self.url = jsonDoc['infoData']['defaultUrl']
         except Exception as e:
             await self.bot.send_message(Config.OWNER_ID, f'{line_number(fileName, e)}\n\n{self.url}')
-            await self.bot.edit_message_text(self.userid, self.process_msg.message_id, BotMessage.unsuccessful_upload, parse_mode = enums.ParseMode.HTML)
+            await self.bot.edit_message_text(self.userid, self.process_msg.id, BotMessage.unsuccessful_upload, parse_mode = enums.ParseMode.HTML)
             return
         else:
             try:
