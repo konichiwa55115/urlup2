@@ -1,25 +1,13 @@
-#Thank you LazyDeveloper for helping me in this journey !
-#Must Subscribe On YouTube @LazyDeveloperr
-# Python Based Docker
-# Python Based Docker
-FROM python:latest
-
-# Installing Packages
+FROM python:3.9-buster
 RUN apt update && apt upgrade -y
-RUN apt install git curl python3-pip ffmpeg -y
-
-# Updating Pip Packages
+RUN apt install git curl python3-pip -y
+RUN apt install dos2unix
 RUN pip3 install -U pip
-
-# Copying Requirements
 COPY requirements.txt /requirements.txt
-
-# Installing Requirements
 RUN cd /
 RUN pip3 install -U -r requirements.txt
-RUN mkdir /LazyDeveloper
-WORKDIR /LazyDeveloper
+RUN mkdir /kony
+WORKDIR /kony
 COPY start.sh /start.sh
-
-# Running MessageSearchBot
+RUN dos2unix /start.sh 
 CMD ["/bin/bash", "/start.sh"]
